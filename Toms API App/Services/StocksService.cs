@@ -28,5 +28,10 @@ namespace Toms_API_App.Services
 
             return await _restService.GetAsync<IEnumerable<StocksResponse>>(_apiPath + $"?start_date={pictureDate.ToString("yyyy-MM-dd")}&end_date={pictureDate.ToString("yyyy-MM-dd")}&api_key={_apiKey}");
         }
+
+        public async Task SendAsync()
+        {
+            await _restService.SendAsync();
+        }
     }
 }
