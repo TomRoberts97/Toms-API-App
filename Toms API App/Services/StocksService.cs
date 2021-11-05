@@ -23,15 +23,16 @@ namespace Toms_API_App.Services
         // just get the data showing with the given SQL
         // then I can start passing in the dates and stocks names from the UI
 
-        public async Task<(ResultStatus status, IEnumerable<StocksResponse> payload, string rawResponse)> GetApodAsync(DateTime pictureDate)
+        //"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&apikey=demo"
+
+        public async Task<(ResultStatus status, IEnumerable<Root> payload, string rawResponse)> GetStocksAsync()
         {
 
-            return await _restService.GetAsync<IEnumerable<StocksResponse>>(_apiPath + $"?start_date={pictureDate.ToString("yyyy-MM-dd")}&end_date={pictureDate.ToString("yyyy-MM-dd")}&api_key={_apiKey}");
+            return await _restService.GetAsync<IEnumerable<Root>>(_apiPath + $"?function=GLOBAL_QUOTE&symbol=IBM&apikey={_apiKey}");
+            Console.WriteLine("aaa");
+
+           // return await _restService.GetAsync<IEnumerable<StocksResponse>>(_apiPath + $"?start_date={pictureDate.ToString("yyyy-MM-dd")}&end_date={pictureDate.ToString("yyyy-MM-dd")}&api_key={_apiKey}");
         }
 
-        public async Task SendAsync()
-        {
-            await _restService.SendAsync();
-        }
     }
 }

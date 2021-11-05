@@ -32,7 +32,7 @@ namespace Toms_API_App.Boilerplate
 
         private StocksService GetStocksService()
         {
-            return new StocksService(_iocc.GetInstance<IRestService>(), ApiConstants.ApodServiceEndpoint, ApiConstants.ApiKey);
+            return new StocksService(_iocc.GetInstance<IRestService>(), null, ApiConstants.ApiKey);
         }
 
         private IRestService GetRestService()

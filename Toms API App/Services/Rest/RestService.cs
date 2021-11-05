@@ -22,7 +22,8 @@ namespace Toms_API_App.Services.Rest
 
         public async Task<(ResultStatus status, TResponse payload, string rawResponse)> GetAsync<TResponse>(string path)
         {
-            string uri = Path.Combine(_host, path);
+            //string uri = Path.Combine(_host, path);
+            string uri = $"{_host}{path}";
 
             HttpResponseMessage response = await _httpClient.GetAsync(Sanitise(uri));
 
@@ -31,7 +32,7 @@ namespace Toms_API_App.Services.Rest
                 string rawData = await response.Content.ReadAsStringAsync();
 
                 // Turn our JSON string into a csharp object (or object-graph)
-                var result = JsonConvert.DeserializeObject<TResponse>(rawData);
+                var result = JsonConvert.DeserializeObject<TResponse>(rawData);   //Response ISNT being coverted!
 
                 // Return a response of type TResult.
                 return (ResultStatus.Success, result, rawData);
@@ -44,7 +45,8 @@ namespace Toms_API_App.Services.Rest
 
         public async Task<(ResultStatus status, TResponse payload, string rawResponse)> PostAsync<TRequest, TResponse>(TRequest request, string path)
         {
-            string uri = Path.Combine(_host, path);
+            //string uri = Path.Combine(_host, path);
+            string uri = $"{_host} + {path}";
 
             string json = JsonConvert.SerializeObject(request);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
@@ -73,37 +75,5 @@ namespace Toms_API_App.Services.Rest
             return uri.Replace('\\', '/');
         }
 
-
-        public async Task SendAsync()
-        {
-
-            var response = await _httpClient.SendAsync("https://fruityvice.com/api/fruit/all");
-
-            //var request = new HttpRequestMessage
-            //{
-            //    Method = HttpMethod.Post,
-            //    RequestUri = new Uri("https://hotstoks-sql-finance.p.rapidapi.com/query"),
-            //    Headers =
-            //            {
-            //                { "x-rapidapi-host", "hotstoks-sql-finance.p.rapidapi.com" },
-            //                { "x-rapidapi-key", "2e582ea511msh7c0f83b4e5c7b31p1c1690jsn2352215932d2" },
-            //            },
-            //    Content = new StringContent("\"SELECT * FROM stocks WHERE symbol in ('FB', 'AMZN', 'AAPL', 'NFLX', 'GOOG') ORDER BY price_change_percent_1m DESC\"")
-            //    {
-            //        Headers =
-            //                {
-            //                    ContentType = new MediaTypeHeaderValue("text/plain")
-            //                }
-            //    }
-            //};
-
-            //using (var response = await _httpClient.SendAsync(request))
-            //{
-            //    response.EnsureSuccessStatusCode();
-            //    var body = await response.Content.ReadAsStringAsync();
-
-            //    Console.WriteLine(body);
-            //}
-        }
     }
 }

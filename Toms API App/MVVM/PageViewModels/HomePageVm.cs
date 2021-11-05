@@ -32,7 +32,7 @@ namespace Toms_API_App.MVVM.PageViewModels
 
         private async Task ApiCommandExecute()
         {
-            await _stocksService.SendAsync();
+            await _stocksService.GetStocksAsync();
         }
     }
 }

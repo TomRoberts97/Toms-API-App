@@ -9,7 +9,6 @@ namespace Toms_API_App.Services.Rest
     {
         Task<(ResultStatus status, TResponse payload, string rawResponse)> GetAsync<TResponse>(string url);
         Task<(ResultStatus status, TResponse payload, string rawResponse)> PostAsync<TRequest, TResponse>(TRequest request, string url);
-        Task SendAsync();
     }
 
     public enum ResultStatus
